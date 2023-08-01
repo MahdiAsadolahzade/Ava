@@ -3,6 +3,8 @@
 @tailwind utilities;
 
 code {
+    width: 1440px;
+    height: 924px;
     font-family: "iranyekanwebregular.ttf";
   }
   
