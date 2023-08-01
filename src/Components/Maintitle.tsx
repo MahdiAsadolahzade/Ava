@@ -1,6 +1,5 @@
-export interface IProps {}
-
-export const Maintitle = ({}: IProps): JSX.Element => {
+//main title of project
+function Maintitle() {
   return (
     <div
       dir="rtl"
@@ -10,4 +9,6 @@ export const Maintitle = ({}: IProps): JSX.Element => {
       تبدیل گفتار به متن
     </div>
   );
-};
+}
+
+export default Maintitle;

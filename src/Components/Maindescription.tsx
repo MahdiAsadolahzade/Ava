@@ -1,6 +1,5 @@
-export interface IProps {}
-
-export const Maindescription = ({}: IProps): JSX.Element => {
+//main description of project
+function Maindescription() {
   return (
     <div
       dir="rtl"
@@ -12,3 +11,6 @@ export const Maindescription = ({}: IProps): JSX.Element => {
     </div>
   );
 };
+
+export default  Maindescription
+
