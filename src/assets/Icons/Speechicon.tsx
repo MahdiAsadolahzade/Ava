@@ -1,6 +1,6 @@
 function Speechicon() {
   return (
-    <svg
+    <svg className="inline-block m-[12px]"
       width="22"
       height="25"
       viewBox="0 0 22 25"

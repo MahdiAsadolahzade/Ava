@@ -1,5 +1,5 @@
 // section of Goftar
-import Dropdownicon from "./Icons/Dropdownicon";
+import Dropdownicon from "../assets/Icons/Dropdownicon";
 function Goftar() {
   return (
     // main content of Goftar

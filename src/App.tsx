@@ -1,32 +1,16 @@
-import "./index.css";
-import Dropdown from "./Components/DropDown";
-import Sidemenu from "./Components/Sidemenu";
-import Maintitle from "./Components/Maintitle";
-import Uploading from "./Components/Uploading";
-import Goftar from "./Components/Goftar";
-import Maindescription from "./Components/Maindescription";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Goftarpage from "./Pages/Goftarpage";
+import Archivepage from "./Pages/Archivepage";
 
 function App() {
   return (
     <>
-      <header>
-        <Maintitle></Maintitle>
-        <Maindescription></Maindescription>
-        <Dropdown></Dropdown>
-      </header>
-
-      <nav className="relative">
-        <Sidemenu></Sidemenu>
-      </nav>
-
-      <main>
-        <article>
-          <Goftar></Goftar>
-        </article>
-        <article>
-          <Uploading></Uploading>
-        </article>
-      </main>
+      <Router>
+        <Routes>
+          <Route path="/" element={<Goftarpage />} />
+          <Route path="/archive" element={<Archivepage />} />
+        </Routes>
+      </Router>
     </>
   );
 }

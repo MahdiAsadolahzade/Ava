@@ -1,6 +1,6 @@
 /* Code generated with AutoHTML Plugin for Figma */
-import Usericon from "./Icons/Usericon";
-import Dropdownicon from "./Icons/Dropdownicon";
+import Usericon from "../assets/Icons/Usericon";
+import Dropdownicon from "../assets/Icons/Dropdownicon";
 
 //function of drop down including: dropdown icon , content , user icon
 function Dropdown() {
@@ -31,5 +31,3 @@ function Dropdown() {
 }
 
 export default Dropdown;
-
-
