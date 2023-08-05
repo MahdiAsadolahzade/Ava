@@ -1,6 +1,6 @@
 function Linkicon() {
   return (
-    <svg className="inline-block "
+    <svg 
       width="17"
       height="21"
       viewBox="0 0 17 21"

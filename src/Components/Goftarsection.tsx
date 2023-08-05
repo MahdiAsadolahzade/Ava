@@ -2,10 +2,14 @@ import Speechicon from "../assets/Icons/Speechicon";
 export default function Goftarsection() {
   return (
     <>
-      <span className="text-[#ffffff] " style={{ font: "700 16px" }}>
-        تبدیل گفتار
+      <div className="flex flex-row justify-center my-[13px] mr-[10px]">
+        <div className="flex flex-row items-center">
         <Speechicon></Speechicon>
-      </span>
+        </div>
+        <p className="text-[#ffffff] mr-[12px] " style={{ font: "700 16px" }}>
+          تبدیل گفتار
+        </p>
+      </div>
       {/* section of Goftar : icon */}
     </>
   );

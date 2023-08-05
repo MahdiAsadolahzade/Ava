@@ -1,6 +1,6 @@
 function Uploadicon() {
   return (
-    <svg className="inline-block "
+    <svg
       width="20"
       height="17"
       viewBox="0 0 20 17"
