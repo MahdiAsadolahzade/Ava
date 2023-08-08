@@ -12,27 +12,24 @@ export default function Sidemenu() {
         className="rounded-tl-[10px] rounded-bl-[10px] "
         style={{
           backgroundImage: `url(${background})`,
-          backgroundSize : "cover" ,
+          backgroundSize: "cover",
           height: "100vh",
         }}
       >
         <div className="flex flex-row justify-center pt-[48px] pb-[182px]">
-          
           <div className="m-[11px]">
-          <Mainicon></Mainicon>
+            <Mainicon></Mainicon>
           </div>
           <div className="flex flex-row items-center">
-            <section className="text-[#ffffff]"
-            style={{ font: "700 20px" }}>
-            آوا
+            <section className="text-[#ffffff]" style={{ font: "700 20px" }}>
+              آوا
             </section>
           </div>
         </div>
 
-
         <ul className="">
           <li className=" flex flex-row justify-center">
-            <NavLink 
+            <NavLink
               className={({ isActive, isPending }) =>
                 isPending
                   ? "flex flex-row items-center "

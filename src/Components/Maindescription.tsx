@@ -1,7 +1,7 @@
 //main description of project
 function Maindescription() {
   return (
-    <div className="flex  flex-row justify-center">
+    <div className="flex  flex-row justify-center text-center">
       <article
         style={{ font: "400 16px , sans-serif", color: " #969696" }}
       >
