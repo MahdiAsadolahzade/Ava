@@ -12,7 +12,7 @@ function DropMenu() {
     <div className="w-[121px] h-[81px] flex mr-auto ml-[48px] mt-[48px]">
       <div
         className={`flex flex-row justify-center items-center rounded-2xl border-1 w-32 h-9 border-teal-500 ${
-          open === true && "h-20 flex flex-row flex-wrap "
+          open === true && "h-[80px] flex flex-row flex-wrap "
         }`}
       >
         {open ? (
@@ -51,7 +51,6 @@ function DropMenu() {
           )
         ) : (
           <>
-            {" "}
             <div className="ml-[5px]">
               <Usericon></Usericon>
             </div>

@@ -2,13 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
-code {
-    width: 1440px;
-    height: 924px;
-    font-family: "iranyekanwebregular.ttf";
-  }
-  
-   @font-face {
-    font-family: "iranyekanwebregular";
-    src: local("iranyekanwebregular"), url(./iranyekanwebregular.ttf) format("truetype");
-  }
+
+@font-face {
+  font-family: "iranyekanwebregular";
+  src: local("iranyekanwebregular"),
+    url(./iranyekanwebregular.ttf) format("truetype");
+}

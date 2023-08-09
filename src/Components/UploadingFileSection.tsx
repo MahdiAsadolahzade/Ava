@@ -4,13 +4,16 @@ import Downloadicon from "../assets/Icons/Downloadicon";
 import Copyicon from "../assets/Icons/Copyicon";
 import Refreshicon from "../assets/Icons/Refreshicon";
 import { useState } from "react";
+import AudioPlayer from "./Audioplayer";
+import Showsimpletext from "./Showsimpletext";
+
 
 function UploadingFileSection() {
   const [choice, setchoice] = useState("simpletext");
   return (
     <div className="flex flex-col ">
-      <div className="flex flex-row mt-[25px] mb-[10px] justify-around items-center">
-        <div className="flex flex-row justify-around items-center">
+      <div className="flex flex-row mt-[25px] mb-[10px] justify-between items-center w-[80%] mx-auto">
+        <div className="flex flex-row justify-between items-center">
           <div
             className="flex flex-row  items-center w-24 cursor-pointer"
             onClick={() => {
@@ -66,13 +69,18 @@ function UploadingFileSection() {
       {/* <div className="w-[80%] h-px border border-[#969696] border-opacity-50 mt-[7px] mx-auto"></div> */}
       <hr className="w-[80%] mx-auto" />
       {choice === "simpletext" && (
-        <div className="w-[12%] h-px border-1 border-black ml-auto mr-[75px]"></div>
+        <div className="w-[10%] h-px border-1 border-black ml-auto mr-[75px]"></div>
       )}
       {choice === "timedtext" && (
-        <div className="w-[17%] h-px border-1 border-black ml-auto mr-[180px]"></div>
+        <div className="w-[17%] h-px border-1 border-black ml-auto mr-[175px]"></div>
       )}
+      <div className="flex flex-row justify-center">
+        <Showsimpletext></Showsimpletext>
+      </div>
 
-      
+      <div className="">
+      <AudioPlayer></AudioPlayer>
+      </div>
     </div>
   );
 }
