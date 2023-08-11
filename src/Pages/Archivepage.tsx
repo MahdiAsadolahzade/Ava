@@ -1,6 +1,7 @@
 import Dropdown from "../Components/DropMenu";
 import Sidemenu from "../Components/Sidemenu";
-
+import Archivetitle from "../Components/Archivetitle";
+import ArchiveTable from "../Components/ArchiveTable";
 
 function Archivepage() {
   return (
@@ -11,6 +12,8 @@ function Archivepage() {
         </div>
         <div className="col-span-8">
           <Dropdown></Dropdown>
+          <Archivetitle></Archivetitle>
+          <ArchiveTable></ArchiveTable>
         </div>
       </div>
     </>

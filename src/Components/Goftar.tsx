@@ -6,7 +6,7 @@ function Goftar() {
   const [open, setOpen] = useState(false);
   return (
     // main content of Goftar
-    <div className="flex flex-row-reverse ml-[370px] mr-auto mt-[10px] text">
+    <div className="w-[50%] flex flex-row-reverse justify-start mx-auto mt-[10px] text">
       <div className="bg-[#fefefe] rounded-[20px] border-solid border-teal-500 border-[1.5px] w-[105px] h-[37px] flex flex-row justify-center items-center">
       
         <span

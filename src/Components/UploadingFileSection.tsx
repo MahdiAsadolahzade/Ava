@@ -6,12 +6,12 @@ import Refreshicon from "../assets/Icons/Refreshicon";
 import { useState } from "react";
 import AudioPlayer from "./Audioplayer";
 import Showsimpletext from "./Showsimpletext";
-
+import Showtimedtext from "./Showtimedtext";
 
 function UploadingFileSection() {
   const [choice, setchoice] = useState("simpletext");
   return (
-    <div className="flex flex-col ">
+    <div className="flex flex-col w-[100%]">
       <div className="flex flex-row mt-[25px] mb-[10px] justify-between items-center w-[80%] mx-auto">
         <div className="flex flex-row justify-between items-center">
           <div
@@ -36,30 +36,15 @@ function UploadingFileSection() {
         </div>
 
         <div className="flex flex-row items-center">
-          <div
-            className="cursor-pointer"
-            onClick={() => {
-              setchoice("downloadtext");
-            }}
-          >
+          <div className="cursor-pointer">
             <Downloadicon></Downloadicon>
           </div>
 
-          <div
-            className="mx-[20px] cursor-copy"
-            onClick={() => {
-              setchoice("copytext");
-            }}
-          >
+          <div className="mx-[20px] cursor-copy">
             <Copyicon></Copyicon>
           </div>
 
-          <div
-            className="flex flex-row justify-center items-center w-28 h-8 bg-sky-600 rounded-2xl cursor-pointer"
-            onClick={() => {
-              setchoice("refreshtext");
-            }}
-          >
+          <div className="flex flex-row justify-center items-center w-28 h-8 bg-sky-600 rounded-2xl cursor-pointer">
             <Refreshicon></Refreshicon>
             <span className="text-[#ffffff] ">شروع دوباره</span>
           </div>
@@ -75,11 +60,12 @@ function UploadingFileSection() {
         <div className="w-[17%] h-px border-1 border-black ml-auto mr-[175px]"></div>
       )}
       <div className="flex flex-row justify-center">
-        <Showsimpletext></Showsimpletext>
+        {choice === "simpletext" && <Showsimpletext></Showsimpletext>}
+        {choice === "timedtext" && <Showtimedtext></Showtimedtext>}
       </div>
 
-      <div className="">
-      <AudioPlayer></AudioPlayer>
+      <div className="my-[10px] ">
+        <AudioPlayer></AudioPlayer>
       </div>
     </div>
   );
