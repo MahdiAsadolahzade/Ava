@@ -8,7 +8,15 @@ import AudioPlayer from "./Audioplayer";
 import Showsimpletext from "./Showsimpletext";
 import Showtimedtext from "./Showtimedtext";
 
-function UploadingFileSection() {
+
+interface FileProps {
+  FileUpload?: File;
+  Section : string
+}
+
+const UploadingFileSection: React.FC<FileProps> = ({FileUpload , Section} ,)=> {
+
+  
   const [choice, setchoice] = useState("simpletext");
   return (
     <div className="flex flex-col w-[100%]">
@@ -44,14 +52,14 @@ function UploadingFileSection() {
             <Copyicon></Copyicon>
           </div>
 
-          <div className="flex flex-row justify-center items-center w-28 h-8 bg-sky-600 rounded-2xl cursor-pointer">
+          <div className={`flex flex-row justify-center items-center w-28 h-8  rounded-2xl cursor-pointer ${Section==="upload" &&"bg-sky-600"} ${Section==="voice" &&"bg-teal-500"}`}>
             <Refreshicon></Refreshicon>
             <span className="text-[#ffffff] ">شروع دوباره</span>
           </div>
         </div>
       </div>
 
-      {/* <div className="w-[80%] h-px border border-[#969696] border-opacity-50 mt-[7px] mx-auto"></div> */}
+      
       <hr className="w-[80%] mx-auto" />
       {choice === "simpletext" && (
         <div className="w-[10%] h-px border-1 border-black ml-auto mr-[75px]"></div>
@@ -65,7 +73,7 @@ function UploadingFileSection() {
       </div>
 
       <div className="my-[10px] ">
-        <AudioPlayer></AudioPlayer>
+        <AudioPlayer audioFile={FileUpload} AudioSection={Section} ></AudioPlayer>
       </div>
     </div>
   );

@@ -1,22 +1,26 @@
 import BigUploadicon from "../assets/Icons/BigUploadicon";
 import { useState } from "react";
 import axios from "axios";
-
 import UploadingFileSection from "./UploadingFileSection";
 
-export default function Uploadingfilebutton() {
-  const [uploaded, setuploaded] = useState(false);
 
+const Uploadingfile: React.FC = () => {
+  const [uploaded, setuploaded] = useState(false);
+  const [file, setFile] = useState<File | undefined>();
+  
   const handleFileInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    const file = event.target.files?.[0];
+    const file = event.target.files?.[0]
     console.log(file);
+    setFile(file);
+    setuploaded(true)
   };
+
   return (
     <main className="bg-[#ffffff] rounded-[25px] border-solid border-[#118ad3] border-1 w-[100%] h-[50vh] justify-center flex flex-col">
       {uploaded ? (
-        <UploadingFileSection />
+        <UploadingFileSection FileUpload={file} Section={"upload"} />
       ) : (
         <div className="flex flex-col justify-center items-center">
           <label htmlFor="fileInput" className="cursor-pointer">
@@ -27,9 +31,6 @@ export default function Uploadingfilebutton() {
             id="fileInput"
             style={{ display: "none" }}
             onChange={handleFileInputChange}
-            onClick={() => {
-              setuploaded(!uploaded);
-            }}
           />
 
           <div className="text-[#969696] w-[50%] text-center mt-[12px]">
@@ -40,4 +41,6 @@ export default function Uploadingfilebutton() {
       )}
     </main>
   );
-}
+};
+
+export default Uploadingfile;
