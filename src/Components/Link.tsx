@@ -11,6 +11,7 @@ export default function Linkbutton() {
       const blob = new Blob([response.data], { type: "audio/mpeg" });
       const audioUrl = URL.createObjectURL(blob);
       setAudioSource(audioUrl);
+      console.log(audioSource);
     } catch (error) {
       console.error("Error downloading audio:", error);
     }

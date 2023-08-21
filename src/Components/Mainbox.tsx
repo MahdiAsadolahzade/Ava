@@ -6,7 +6,6 @@ import Voicerecording from "./Voicerecording";
 import Link from "./Link";
 import Uploadingfile from "./Uploadingfile";
 
-import UploadingFileSection from "./UploadingFileSection";
 
 function Mainbox() {
   const [selectedPlatform, setSelectedPlatform] = useState("record");

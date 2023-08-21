@@ -9,7 +9,7 @@ const Token = import.meta.env.VITE_SOME_KEY;
 export default function Voicerecording() {
   const [isRecording, setIsRecording] = useState(false);
   const [stopRecord, setStopRecord] = useState(false);
-  const [audioBlob, setAudioBlob] = useState<Blob | undefined>(undefined);
+  const [, setAudioBlob] = useState<Blob | undefined>(undefined);
   const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
     null
   );
