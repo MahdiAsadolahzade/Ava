@@ -11,11 +11,12 @@ import Showtimedtext from "./Showtimedtext";
 
 interface FileProps {
   FileUpload?: File;
-  Section : string
+  Section : string;
+  ExportData: any ;
 }
 
-const UploadingFileSection: React.FC<FileProps> = ({FileUpload , Section} ,)=> {
-
+const UploadingFileSection: React.FC<FileProps> = ({FileUpload , Section , ExportData})=> {
+ 
   
   const [choice, setchoice] = useState("simpletext");
   return (
@@ -68,8 +69,8 @@ const UploadingFileSection: React.FC<FileProps> = ({FileUpload , Section} ,)=> {
         <div className="w-[17%] h-px border-1 border-black ml-auto mr-[175px]"></div>
       )}
       <div className="flex flex-row justify-center">
-        {choice === "simpletext" && <Showsimpletext></Showsimpletext>}
-        {choice === "timedtext" && <Showtimedtext></Showtimedtext>}
+        {choice === "simpletext" && <Showsimpletext Data={ExportData}></Showsimpletext>}
+        {choice === "timedtext" && <Showtimedtext Data={ExportData}></Showtimedtext>}
       </div>
 
       <div className="my-[10px] ">

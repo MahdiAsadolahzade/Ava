@@ -1,6 +1,5 @@
 import BigUploadicon from "../assets/Icons/BigUploadicon";
 import { useState } from "react";
-import axios from "axios";
 import UploadingFileSection from "./UploadingFileSection";
 
 
@@ -20,7 +19,7 @@ const Uploadingfile: React.FC = () => {
   return (
     <main className="bg-[#ffffff] rounded-[25px] border-solid border-[#118ad3] border-1 w-[100%] h-[50vh] justify-center flex flex-col">
       {uploaded ? (
-        <UploadingFileSection FileUpload={file} Section={"upload"} />
+        <UploadingFileSection FileUpload={file} Section={"upload"} ExportData={undefined} />
       ) : (
         <div className="flex flex-col justify-center items-center">
           <label htmlFor="fileInput" className="cursor-pointer">
