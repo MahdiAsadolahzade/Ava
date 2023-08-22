@@ -19,7 +19,7 @@ export default function Linkbutton() {
 
   return (
     <main className="bg-[#ffffff] rounded-[25px] border-solid border-[#ff1654] border-[1.5px] w-[50vw] h-[50vh] flex flex-col justify-center items-center">
-      <div className=" bg-white rounded-3xl border-1 border-rose-600 w-[50%] flex flex-row justify-end">
+      <div className=" bg-white rounded-3xl border-[1.5px] border-rose-600 w-[50%] flex flex-row justify-end">
         <input
           className="w-[100%] text-center rounded-3xl "
           type="text"
