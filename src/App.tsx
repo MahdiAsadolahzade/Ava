@@ -7,7 +7,7 @@ function App() {
   return (
     <>
       <Router 
-      basename={import.meta.env.DEV ? '/' : '/Ava/'}
+      // basename={import.meta.env.DEV ? '/' : '/Ava/'}
       >
         <Routes>
         <Route path="/" element={<Navigate to="/Ava/" />} />
