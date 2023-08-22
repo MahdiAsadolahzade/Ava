@@ -37,7 +37,7 @@ export default function Sidemenu() {
                   ? "bg-[#02816e] rounded-[10px] text-center w-[80%] h-[48px] flex flex-row justify-center items-center"
                   : ""
               }
-              to="/"
+              to="/Ava/"
             >
               <Goftarsection></Goftarsection>
             </NavLink>
