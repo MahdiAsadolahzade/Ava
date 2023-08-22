@@ -94,7 +94,7 @@ export default function Voicerecording() {
   };
 
   return (
-    <main className="bg-[#ffffff] rounded-tl-[25px] rounded-br-[25px] rounded-bl-[25px]  border-solid border-teal-500 border-1 w-[100%] h-[50vh] justify-center  flex flex-col ">
+    <main className="bg-[#ffffff] rounded-tl-[25px] rounded-br-[25px] rounded-bl-[25px]  border-solid border-[#000000] border-1 w-[100%] h-[50vh] justify-center  flex flex-col ">
       
       {stopRecord === false && (
         <div className="flex flex-col justify-center items-center">

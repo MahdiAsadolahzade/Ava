@@ -3,7 +3,6 @@ import Goftarpage from "./Pages/Goftarpage";
 import Archivepage from "./Pages/Archivepage";
 
 function App() {
-  console.log("hi");
   return (
     <>
       <Router 
