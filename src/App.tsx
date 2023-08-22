@@ -5,7 +5,7 @@ import Archivepage from "./Pages/Archivepage";
 function App() {
   return (
     <>
-      <Router>
+      <Router basename={import.meta.env.DEV ? '/Ava' : '/Ava/'}>
         <Routes>
           <Route path="/" element={<Goftarpage />} />
           <Route path="/archive" element={<Archivepage />} />
