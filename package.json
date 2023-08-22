@@ -10,9 +10,6 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@emotion/react": "^11.11.1",
-    "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.14.4",
     "axios": "^1.4.0",
     "dotenv": "^16.3.1",
     "num2persian": "^3.2.2",
