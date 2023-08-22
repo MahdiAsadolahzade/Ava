@@ -17,7 +17,7 @@ const Uploadingfile: React.FC = () => {
   };
 
   return (
-    <main className="bg-[#ffffff] rounded-[25px] border-solid border-[#118ad3] border-1 w-[100%] h-[50vh] justify-center flex flex-col">
+    <main className="bg-[#ffffff] rounded-[25px] border-solid border-[#118ad3] border-[1.5px] w-[100%] h-[50vh] justify-center flex flex-col">
       {uploaded ? (
         <UploadingFileSection FileUpload={file} Section={"upload"} ExportData={undefined} />
       ) : (

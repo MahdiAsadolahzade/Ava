@@ -11,7 +11,7 @@ function DropMenu() {
     //div for container
     <div className="w-[121px] h-[81px] flex mr-auto ml-[48px] mt-[48px]">
       <div
-        className={`flex flex-row justify-center items-center rounded-2xl border-1 w-32 h-9 border-teal-500 ${
+        className={`flex flex-row justify-center items-center rounded-2xl border-[1.5px] w-32 h-9 border-teal-500 ${
           open === true && "h-[80px] flex flex-row flex-wrap "
         }`}
       >
