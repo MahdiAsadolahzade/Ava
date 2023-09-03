@@ -3,13 +3,13 @@ import Archiveicon from "../assets/Icons/Archiveicon";
 export default function Archivesection() {
   return (
     <>
-      <div className="flex flex-row justify-center my-[13px] mr-[10px]">
-        <div className="flex flex-row items-center">
+      <div className="flex flex-row  my-[13px] ml-[20px]">
+        <div className="flex flex-row items-center ml-auto">
         <Archiveicon></Archiveicon>
         </div>
-        <p className="text-[#ffffff] mr-[12px] " style={{ font: "700 16px" }}>
+        <div className="text-[#ffffff] mr-[12px] " style={{ font: "700 16px" }}>
           آرشیو
-        </p>
+        </div>
       </div>
       {/* icon of archive */}
     </>

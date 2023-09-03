@@ -8,11 +8,15 @@ import React, { useRef, useState, useEffect } from "react";
 interface AudioPlayerProps {
   audioFile: File | undefined | null;
   AudioSection: string;
+  currentTime: number;
+  onTimeUpdate: (newTime: number) => void
 }
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({
   audioFile,
   AudioSection,
+  currentTime,
+  onTimeUpdate
 }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -20,11 +24,40 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
   const [loadedProgress, setLoadedProgress] = useState(0);
   const [volume, setVolume] = useState<number>(1);
   let playercolor;
-  if (AudioSection === "voice") {
-    playercolor = "#00BA9F";
+  if (AudioSection === "link") {
+    playercolor = "#FF1654";
   } else if (AudioSection === "upload") {
     playercolor = "#118AD3";
   }
+  //---------------------------
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.currentTime = currentTime;
+    }
+  }, [currentTime]);
+
+  useEffect(() => {
+    if (audioRef.current) {
+      audioRef.current.addEventListener("timeupdate", () => {
+        if (audioRef.current) {
+          onTimeUpdate(audioRef.current.currentTime);
+        }
+      });
+    }
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.removeEventListener("timeupdate", () => {
+          if (audioRef.current) {
+            onTimeUpdate(audioRef.current.currentTime);
+          }
+        });
+      }
+    };
+  }, [audioRef, onTimeUpdate]);
+
+  //---------------------------
+
   const handleVolumeChange = (e: React.MouseEvent<HTMLDivElement>) => {
     const progressBar = document.querySelector(
       ".volume-progress-bar"
@@ -150,7 +183,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         />
         <style></style>
         <div
-          className="w-full h-px border rounded border-stone-300"
+          className="w-full h-px border-[1.5px] rounded border-stone-300"
           style={{
             position: "absolute",
             top: "50%",
@@ -159,13 +192,13 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
           }}
         ></div>
         <div
-          className="progress-bar w-full h-px border-1 rounded border-zinc-500 absolute"
+          className="progress-bar w-full h-px border-[1.5px] rounded border-zinc-500 absolute"
           style={{ width: `${loadedProgress}%`, zIndex: 1 }}
         ></div>
         <div
-          className={`played w-full h-px border-1 rounded ${
+          className={`played w-full h-px border-[1.5px] rounded ${
             AudioSection === "upload" && "border-sky-600"
-          }  ${AudioSection === "voice" && "border-teal-500"} absolute`}
+          }  ${AudioSection === "link" && "border-rose-500"} absolute`}
           style={{ width: `${thumbPosition}%`, zIndex: 3 }}
         ></div>
       </div>
@@ -181,12 +214,12 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
         className="w-[20%] h-[20px] flex flex-row items-center justify-center cursor-pointer"
         onClick={handleVolumeChange}
       >
-        <div className="w-full h-px border border-stone-300 relative rounded mr-[5px]  volume-progress-bar">
+        <div className="w-full h-px border-[1.5px] border-stone-300 relative rounded mr-[5px]  volume-progress-bar">
           <div
-            className={`played h-px border-1 ${
+            className={`played h-px border-[1.5px] ${
               AudioSection === "upload" && "border-sky-600"
             }  ${
-              AudioSection === "voice" && "border-teal-500"
+              AudioSection === "link" && "border-rose-500"
             } rounded absolute`}
             style={{ width: `${volume * 100}%` }}
           ></div>

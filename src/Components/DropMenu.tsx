@@ -38,8 +38,8 @@ function DropMenu() {
                   )}
                 </div>
               </div>
-              <div className="w-20 h-px border-1 border-teal-500"></div>
-              <div className="flex flex-row justify-center items-center">
+              <div className="w-20 h-px border-[1px] border-teal-500"></div>
+              <div className="flex flex-row justify-center items-center cursor-pointer">
                 <div className="ml-[5px]">
                   <Exiticon></Exiticon>
                 </div>

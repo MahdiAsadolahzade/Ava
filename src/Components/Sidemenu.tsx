@@ -7,7 +7,7 @@ import background from "./../../public/sidebar.svg";
 
 export default function Sidemenu() {
   return (
-    <div className="">
+    <div>
       <nav
         className="rounded-tl-[10px] rounded-bl-[10px] "
         style={{
@@ -27,14 +27,14 @@ export default function Sidemenu() {
           </div>
         </div>
 
-        <ul className="">
+        <ul>
           <li className=" flex flex-row justify-center">
             <NavLink
               className={({ isActive, isPending }) =>
                 isPending
-                  ? "flex flex-row items-center "
+                  ? "flex flex-row items-center  w-[90%] "
                   : isActive
-                  ? "bg-[#02816e] rounded-[10px] text-center w-[80%] h-[48px] flex flex-row justify-center items-center"
+                  ? "bg-[#02816e] rounded-[10px]  w-[90%] h-[48px] flex flex-row justify-center items-center"
                   : ""
               }
               to="/"
@@ -46,9 +46,9 @@ export default function Sidemenu() {
             <NavLink
               className={({ isActive, isPending }) =>
                 isPending
-                  ? "flex flex-row items-center"
+                  ? "flex flex-row items-center  w-[90%] "
                   : isActive
-                  ? "bg-[#02816e] rounded-[10px] text-center w-[80%] h-[48px] flex flex-row items-center justify-center"
+                  ? "bg-[#02816e] rounded-[10px]  w-[90%] h-[48px] flex flex-row items-center justify-center"
                   : ""
               }
               to="/archive"

@@ -1,3 +1,5 @@
 # api keys
 .env
 .vercel
+dist
+node_modules

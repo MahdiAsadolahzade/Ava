@@ -1,119 +1,199 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useEffect, useState, useRef } from "react";
 import Voiceicon from "../assets/Icons/Voiceicon";
-import IconCircleStop from "../assets/Icons/StopVoiceicon";
-import UploadingFileSection from "./UploadingFileSection";
-
-const Token = import.meta.env.VITE_SOME_KEY;
+import Mutevoiceicon from "../assets/Icons/Mutevoiceicon";
+import ArchiveSideButtons from "../assets/Icons/ArchiveSideButtons";
+import "./Voicerecording.css";
+import WaveBackground from "../../public/Wave.gif"
+import WaveBackground2 from "../../public/Wave2.gif"
 
 export default function Voicerecording() {
   const [isRecording, setIsRecording] = useState(false);
-  const [stopRecord, setStopRecord] = useState(false);
-  const [, setAudioBlob] = useState<Blob | undefined>(undefined);
-  const [mediaRecorder, setMediaRecorder] = useState<MediaRecorder | null>(
-    null
+  const mediaRecorder = useRef<MediaRecorder | null>(null);
+  const socketRef = useRef<WebSocket | null>(null);
+  const [segments, setSegments] = useState<
+    { segment_id: number; text: string; start: string; end: string }[]
+  >([]);
+  const [currentStart, setCurrentStart] = useState("00:00:00");
+  const [currentEnd, setCurrentEnd] = useState("00:00:00");
+  const [isCopyMessageVisible, setIsCopyMessageVisible] = useState(false);
+  const [lastChangeMap, setLastChangeMap] = useState<{ [key: number]: string }>(
+    {}
   );
-  const [audioFile, setAudioFile] = useState<File | undefined>(undefined);
-  const [extracteddata, setExtracteddata] = useState(null);
+  const [fullTextArray, setFullTextArray] = useState<string[]>([]);
+  const [wave , setWave] = useState(false)
+  const getFullText = () => {
+    return fullTextArray.join(" ");
+  };
+
+  const handleCopyText = () => {
+    const textToCopy = getFullText();
+    navigator.clipboard
+      .writeText(textToCopy)
+      .then(() => {
+        setIsCopyMessageVisible(true);
+        setTimeout(() => {
+          setIsCopyMessageVisible(false);
+        }, 2000); // مدت زمان نمایش پیام (2 ثانیه)
+      })
+      .catch((error) => {
+        console.error("خطا در کپی متن به کلیپ‌بورد!", error);
+      });
+  };
 
   useEffect(() => {
-    if ( audioFile) {
-      uploadAudioToApi(audioFile);
-    }
-  }, [stopRecord, audioFile]);
+    const newSocket = new WebSocket(
+      "wss://harf.roshan-ai.ir/ws_api/transcribe_files/"
+    );
 
-  const handleRecordClick = async (): Promise<void> => {
-    if (!isRecording) {
-      startRecording();
-    } else {
-      stopRecording();
-    }
-  };
+    newSocket.onopen = () => {
+      console.log("WebSocket connection opened");
+      socketRef.current = newSocket;
+    };
 
-  const startRecording = async (): Promise<void> => {
+    newSocket.onmessage = (event) => {
+      const message = JSON.parse(event.data);
+      setSegments((prevSegments) => {
+        // آپدیت آخرین تغییرات بر روی سگمنت آیدی
+        const updatedLastChangeMap = { ...lastChangeMap };
+        updatedLastChangeMap[message.segment_id] = message.text;
+        setLastChangeMap(updatedLastChangeMap);
+
+        // آپدیت آرایه پیام‌ها با توجه به آخرین تغییرات
+        const updatedSegments = prevSegments.map((segment) => {
+          if (segment.segment_id === message.segment_id) {
+            return { ...segment, text: message.text };
+          }
+          return segment;
+        });
+
+        setCurrentStart(message.start);
+        setCurrentEnd(message.end);
+
+        // آپدیت آرایه fullTextArray با متن جدید
+        setFullTextArray((prevFullTextArray) => {
+          const updatedFullTextArray = [...prevFullTextArray];
+          updatedFullTextArray[message.segment_id] = message.text;
+          return updatedFullTextArray;
+        });
+
+        return updatedSegments;
+      });
+    };
+
+    // تغییرات این قسمت
+    return () => {
+      newSocket.close();
+    };
+  }, []);
+
+  const handleStartRecording = async () => {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-      const recorder = new MediaRecorder(stream);
-      const audioChunks: Blob[] = [];
+      mediaRecorder.current = new MediaRecorder(stream, {
+        mimeType: "audio/webm;codecs=opus",
+      });
 
-      recorder.ondataavailable = (event) => {
+      mediaRecorder.current.ondataavailable = (event) => {
         if (event.data.size > 0) {
-          audioChunks.push(event.data);
+          socketRef.current?.send(event.data);
+          // console.log("data", event.data);
         }
       };
 
-      recorder.onstop = () => {
-        const audioBlob = new Blob(audioChunks, { type: "audio/wav" });
-        setAudioBlob(audioBlob);
-        const audioFile = new File([audioBlob], "recorded_audio.wav", {
-          type: "audio/wav",
-        });
-        setAudioFile(audioFile);
-        
-      };
-
-      recorder.start();
+      mediaRecorder.current.start(1000);
       setIsRecording(true);
-      setMediaRecorder(recorder);
     } catch (error) {
-      console.error("Error starting recording:", error);
+      console.error("Error accessing microphone:", error);
     }
   };
 
-  const stopRecording = (): void => {
-    if (mediaRecorder) {
-      mediaRecorder.stop();
-      setIsRecording(false);
-    }
-  };
-
-  const uploadAudioToApi = async (file: File): Promise<void> => {
-    const formData = new FormData();
-    formData.append("media", file);
-    formData.append("language", "fa");
-
-    try {
-      const { data } = await axios.post(
-        "https://harf.roshan-ai.ir/api/transcribe_files/",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            authorization: "Token " + Token,
-          },
-        }
-      );
-
-      console.log("API response:", data);
-      setExtracteddata(data[0]["segments"]);
-      console.log("API response:", data[0]["segments"]);
-      setStopRecord(true);
-    } catch (error) {
-      console.error("Error uploading audio:", error);
+  const toggleMute = () => {
+    if (mediaRecorder.current) {
+      const audioTrack = mediaRecorder.current.stream.getAudioTracks()[0];
+      audioTrack.enabled = !audioTrack.enabled;
+      setWave(!wave);
     }
   };
 
   return (
-    <main className="bg-[#ffffff] rounded-tl-[25px] rounded-br-[25px] rounded-bl-[25px]  border-solid  border-teal-500 border-[1.5px] w-[100%] h-[50vh] justify-center  flex flex-col ">
-      
-      {stopRecord === false && (
+    <main className="bg-[#ffffff] rounded-tl-[25px] rounded-br-[25px] rounded-bl-[25px] border-solid border-teal-500 border-[1.5px] w-[100%] h-[50vh] justify-center flex flex-col">
+      {!isRecording ? (
         <div className="flex flex-col justify-center items-center">
-          <button onClick={handleRecordClick}>
-            {isRecording ? <IconCircleStop /> : <Voiceicon />}
+          <button onClick={handleStartRecording}>
+            <Voiceicon />
           </button>
           <div className="text-[#969696] w-[35%] text-center mt-[12px]">
             برای شروع به صحبت، دکمه را فشار دهید متن پیاده شده آن، در اینجا ظاهر
             شود
           </div>
         </div>
-      )}
+      ) : (
+        <div className="flex flex-col w-[100%]">
+          <div className="flex flex-row mt-[25px] mb-[10px] justify-between items-center w-[80%] mx-auto">
+            <div className="flex flex-row justify-between items-center">
+              <div className=" w-24 ">{currentEnd}</div>
 
-      {stopRecord === true && (
-        <UploadingFileSection
-          FileUpload={audioFile}
-          Section={"voice"}
-          ExportData={extracteddata}
-        />
+              <div className=" w-24 ">{currentStart}</div>
+            </div>
+
+            <div className="flex flex-row relative items-center">
+              <div className="download-button">
+                <a
+                  className="download-link"
+                  href={`data:text/plain;charset=utf-8,${encodeURIComponent(
+                    getFullText()
+                  )}`}
+                  download="voice_transcription.txt"
+                >
+                  {ArchiveSideButtons.Word}
+                </a>
+              </div>
+
+              <div
+                className="mx-[20px] cursor-copy  hover:text-teal-500"
+                onClick={handleCopyText}
+              >
+                {ArchiveSideButtons.Copy}
+              </div>
+              {isCopyMessageVisible && (
+                <div className="copy-message">متن کپی شد!</div>
+              )}
+
+              <div className="flex flex-row justify-end items-center w-28 ">
+                <span className="relative flex h-3 w-3">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-rose-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-3 w-3 bg-rose-500"></span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <hr className="w-[80%] mx-auto" />
+
+          <div className="flex flex-row justify-center">
+            <div className="w-[80%] mx-auto h-60 text-right text-black text-base font-light overflow-auto mt-[10px]">
+              {fullTextArray.map((text, index) => (
+                <span className={`${index === fullTextArray.length -1 ? "text-teal-500" : "text-black"}`}
+                 key={index}>
+                  {text + " "}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <div className="my-[15px]  flex flex-row justify-center">
+            <div
+              className={`cursor-pointer  rounded-full w-[80px] h-[80px]  flex flex-row justify-center items-center hover:text-${wave?"teal-500":"rose-500"}  text-white`}
+              onClick={toggleMute}
+              style={{
+                background: `url(${wave ?WaveBackground2:WaveBackground})`,
+                backgroundSize: `${wave ? "cover" : "contain"}`,
+              }}
+            >
+              <Mutevoiceicon></Mutevoiceicon>
+            </div>
+          </div>
+        </div>
       )}
     </main>
   );
