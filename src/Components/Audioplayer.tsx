@@ -6,7 +6,7 @@ import Volumebaricon from "../assets/Icons/Volumebaricon";
 import React, { useRef, useState, useEffect } from "react";
 
 interface AudioPlayerProps {
-  audioFile: File | undefined | null;
+  audioFile: File | undefined | null | Blob;
   AudioSection: string;
   currentTime: number;
   onTimeUpdate: (newTime: number) => void
@@ -30,6 +30,8 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
     playercolor = "#118AD3";
   }
   //---------------------------
+
+  
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.currentTime = currentTime;

@@ -11,7 +11,9 @@
   },
   "dependencies": {
     "axios": "^1.4.0",
+    "date-fns": "^2.30.0",
     "dotenv": "^16.3.1",
+    "jalali-moment": "^3.3.11",
     "num2persian": "^3.2.2",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",

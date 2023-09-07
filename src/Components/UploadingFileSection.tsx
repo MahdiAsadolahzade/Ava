@@ -10,7 +10,7 @@ import Showtimedtext from "./Showtimedtext";
 
 
 interface FileProps {
-  FileUpload?: File ;
+  FileUpload?: File | Blob ;
   Section : string;
   ExportData: any ;
 }

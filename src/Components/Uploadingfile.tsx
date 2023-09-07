@@ -27,8 +27,7 @@ const Uploadingfile: React.FC = () => {
     const formData = new FormData();
     formData.append("media", file);
     formData.append("language", "fa");
-    formData.append("type", "file");
-    formData.append("filename", file.name);
+    
 
     try {
       const { data } = await axios.post(

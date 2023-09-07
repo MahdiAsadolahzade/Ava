@@ -12,39 +12,40 @@ const Link: React.FC = () => {
   const [extracteddata, setExtracteddata] = useState(null);
   const [submited, setSubmited] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [linkaddress , setLinkaddress] = useState("");
 
-  const uploadAudioToApi = async (file: File): Promise<void> => {
-    const formData = new FormData();
-    formData.append("media", file);
-    formData.append("language", "fa");
-    formData.append("type", "link");
-    formData.append("linkaddress", linkaddress);
-
+  const uploadAudioToApi = async (link: string): Promise<void> => {
+    setLoading(true);
+    
+  
     try {
+      const requestData = {
+        media_urls: [link],
+        language: "fa",
+      };
+  
       const { data } = await axios.post(
         "https://harf.roshan-ai.ir/api/transcribe_files/",
-        formData,
+        requestData,
         {
           headers: {
-            "Content-Type": "multipart/form-data",
+            "Content-Type": "application/json",
             authorization: "Token " + Token,
           },
         }
       );
-
+  
       console.log("API response:", data);
       setExtracteddata(data[0]["segments"]);
       setSubmited(true);
     } catch (error) {
       console.error("Error uploading audio:", error);
+      
     } finally {
       setLoading(false);
     }
   };
 
   const handleLinkSubmit = async (link: string) => {
-    setLinkaddress(link);
     try {
       setLoading(true);
 
@@ -57,7 +58,7 @@ const Link: React.FC = () => {
       });
       setAudioSourceFile(audioFile);
       setAudioSource(URL.createObjectURL(audioFile));
-      uploadAudioToApi(audioFile);
+      uploadAudioToApi(link);
     } catch (error) {
       console.error("Error downloading audio:", error);
       setLoading(false);

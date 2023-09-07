@@ -123,10 +123,10 @@ const ArchiveSideButtons = {
   Delete: (
     <svg
       viewBox="0 0 24 24"
-      fill="#8F8F8F"
+      fill="currentColor"
       height="1em"
       width="1em"
-      className="hover:fill-[#ffffff]  "
+      className="hover:fill-white " 
     
     >
       <path fill="none" d="M0 0h24v24H0z" />

@@ -1,3 +1,5 @@
+import "./ArchieTable.css"
+
 interface TimedProps {
   Data : any[];
   currentTime: number,
@@ -30,7 +32,7 @@ const Showtimedtext: React.FC<TimedProps> =({Data , currentTime ,Section}) => {
 
 
   return (
-    <div className="w-[80%] mx-auto h-64 text-right text-black text-base font-light mt-[10px] overflow-auto">
+    <div className="w-[80%] mx-auto h-64 text-right text-black text-base font-light mt-[10px] custom-scroll">
       {Data.map((item , index ) => (
         <div
           key={index}
