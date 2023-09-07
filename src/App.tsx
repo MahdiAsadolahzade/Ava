@@ -9,8 +9,8 @@ function App() {
       // basename={import.meta.env.DEV ? '/' : '/Ava/'}
       >
         <Routes>
-          <Route path="/" element={<Goftarpage />} />
-          <Route path="/archive" element={<Archivepage />} />
+          <Route path="/Ava/" element={<Goftarpage />} />
+          <Route path="/Ava/archive" element={<Archivepage />} />
         </Routes>
       </Router>
     </>
