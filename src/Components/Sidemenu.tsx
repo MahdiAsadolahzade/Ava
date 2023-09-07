@@ -50,7 +50,7 @@ export default function Sidemenu() {
                   ? "bg-[#02816e] rounded-[10px]  w-[90%] h-[48px] flex flex-row items-center justify-center"
                   : ""
               }
-              to="/Ava/archive"
+              to="/Ava/archive/"
             >
               <Archivesection></Archivesection>
             </NavLink>

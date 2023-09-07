@@ -10,7 +10,7 @@ function App() {
       >
         <Routes>
           <Route path="/Ava/" element={<Goftarpage />} />
-          <Route path="/Ava/archive" element={<Archivepage />} />
+          <Route path="/Ava/archive/" element={<Archivepage />} />
         </Routes>
       </Router>
     </>
