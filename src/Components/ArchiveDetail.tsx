@@ -4,18 +4,18 @@ import { useEffect, useState } from "react";
 import AudioPlayer from "./Audioplayer";
 import Showsimpletext from "./Showsimpletext";
 import Showtimedtext from "./Showtimedtext";
-
+import loadingaudio from "../../public/loadingaudio.gif"
 
 interface Archiveprops {
-  Section : string;
-  ExportData: any ;
+  Section: string;
+  ExportData: any;
 }
 
-const ArchiveDetail: React.FC<Archiveprops> = ({ Section , ExportData})=> {
- const [currentTime, setCurrentTime] = useState<number>(0);
- const handleTimeUpdate = (newTime: number) => {
-  setCurrentTime(newTime);
-};
+const ArchiveDetail: React.FC<Archiveprops> = ({ Section, ExportData }) => {
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const handleTimeUpdate = (newTime: number) => {
+    setCurrentTime(newTime);
+  };
   const [choice, setchoice] = useState("simpletext");
   const [audioFile, setAudioFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -38,8 +38,7 @@ const ArchiveDetail: React.FC<Archiveprops> = ({ Section , ExportData})=> {
         });
     }
   }, [ExportData]);
-  
-  
+
   return (
     <div className="flex flex-col w-[100%]">
       <div className="flex flex-row  mb-[10px] justify-between items-center w-[80%] mx-auto">
@@ -66,8 +65,6 @@ const ArchiveDetail: React.FC<Archiveprops> = ({ Section , ExportData})=> {
         </div>
       </div>
 
-      
-    
       {choice === "simpletext" && (
         <div className="w-[7%] h-px border-[1.5px] border-black ml-auto mr-[120px]"></div>
       )}
@@ -75,30 +72,44 @@ const ArchiveDetail: React.FC<Archiveprops> = ({ Section , ExportData})=> {
         <div className="w-[11%] h-px border-[1.5px] border-black ml-auto mr-[215px]"></div>
       )}
       <div className="flex flex-row justify-center">
-        {choice === "simpletext" && (ExportData && (<Showsimpletext Data={ExportData["segments"]}></Showsimpletext>))}
-        
-        {choice === "timedtext" && (ExportData && (<Showtimedtext Data={ExportData["segments"]} currentTime={currentTime} Section={Section}></Showtimedtext>))}
+        {choice === "simpletext" && ExportData && (
+          <Showsimpletext Data={ExportData["segments"]} currentTime={currentTime}
+          Section={Section}></Showsimpletext>
+        )}
+
+        {choice === "timedtext" && ExportData && (
+          <Showtimedtext
+            Data={ExportData["segments"]}
+            currentTime={currentTime}
+            Section={Section}
+          ></Showtimedtext>
+        )}
       </div>
-      
+
       {isLoading ? (
-  <div>در حال بارگیری...</div>
-) : (
-  <>
-    <div className="my-[10px] w-[70%] mx-auto">
-      {ExportData && ExportData["media_url"] && audioFile && (
-        <AudioPlayer
-          audioFile={audioFile}
-          AudioSection={Section}
-          currentTime={currentTime}
-          onTimeUpdate={handleTimeUpdate}
-        ></AudioPlayer>
+        <div
+        className="flex flex-row justify-center items-center w-[80px] h-[80px] mx-auto"
+        style={{
+          background: `url(${loadingaudio})`,
+          backgroundSize: "cover",
+        }}
+      ></div>
+      ) : (
+        <>
+          <div className="my-[10px] w-[70%] mx-auto">
+            {ExportData && ExportData["media_url"] && audioFile && (
+              <AudioPlayer
+                audioFile={audioFile}
+                AudioSection={Section}
+                currentTime={currentTime}
+                onTimeUpdate={handleTimeUpdate}
+              ></AudioPlayer>
+            )}
+          </div>
+        </>
       )}
     </div>
-  </>
-)}
-
-    </div>
   );
-}
+};
 
 export default ArchiveDetail;

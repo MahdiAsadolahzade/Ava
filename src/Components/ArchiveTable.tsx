@@ -357,7 +357,7 @@ function ArchiveTable() {
             onConfirmDelete={() => confirmDelete()}
           />
           <div
-            className="mx-auto mt-[10px] w-[85%] custom-scroll"
+            className="mx-auto mt-[10px] w-[88%] custom-scroll"
             style={{ maxHeight: 550 }}
           >
             <table className="table-auto  table ">
@@ -427,7 +427,7 @@ function ArchiveTable() {
                       {fileSizeMessage.size &&
                           fileSizeMessage.rowId === item.id && (
                             <div
-                              className={`file-size-message ${
+                              className={`file-size-message  ${
                                 hoveredRowId === item.id ? "" : "hidden"
                               }`}
                             >

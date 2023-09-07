@@ -74,7 +74,7 @@ const UploadingFileSection: React.FC<FileProps> = ({FileUpload , Section , Expor
         <div className="w-[17%] h-px border-[1.5px] border-black ml-auto mr-[175px]"></div>
       )}
       <div className="flex flex-row justify-center">
-        {choice === "simpletext" && <Showsimpletext Data={ExportData}></Showsimpletext>}
+        {choice === "simpletext" && <Showsimpletext Data={ExportData} currentTime={currentTime} Section={Section}></Showsimpletext>}
         {choice === "timedtext" && <Showtimedtext Data={ExportData} currentTime={currentTime} Section={Section}></Showtimedtext>}
       </div>
 
