@@ -4,7 +4,7 @@ name: Deploy static content to Pages
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ['main']
+    branches: ['Final']
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -46,8 +46,7 @@ jobs:
         with:
           # Upload dist repository
           path: './dist'
+          VITE_SOME_KEY: ${{ secrets.VITE_SOME_KEY }}
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
-        env:
-          VITE_SOME_KEY: ${{ secrets.VITE_SOME_KEY }} 
