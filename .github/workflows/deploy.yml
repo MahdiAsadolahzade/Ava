@@ -30,7 +30,7 @@ jobs:
     steps:
       - name: step 1
         ## Reference your environment variables
-        run: echo "The API key is:${{secrets.VITE_SOME_KEY}}" 
+        run: echo "The API key is:f" 
       - name: Checkout
         uses: actions/checkout@v3
       - name: Set up Node
