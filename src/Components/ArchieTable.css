@@ -2,9 +2,9 @@ tr.expanded {
     height: auto;
   }
   .expanded {
-    height: auto; /* ارتفاع خودکار */
-    background-color: #f2f2f2; /* رنگ پس زمینه متفاوت برای تمیز‌تر بودن */
-    /* دیگر تنظیمات ظاهری مورد نیاز خود را اضافه کنید */
+    height: auto;
+    background-color: #f2f2f2; 
+    
   }
 
 .custom-scroll {

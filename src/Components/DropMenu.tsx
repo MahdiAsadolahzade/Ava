@@ -1,14 +1,12 @@
-/* Code generated with AutoHTML Plugin for Figma */
 import Dropdownicon from "../assets/Icons/Dropdownicon";
 import Droppedupicon from "../assets/Icons/Droppedupicon";
 import Usericon from "../assets/Icons/Usericon";
 import Exiticon from "../assets/Icons/Exiticon";
 import { useState } from "react";
-//function of drop down including: dropdown icon , content , user icon
+
 function DropMenu() {
   const [open, setOpen] = useState(false);
   return (
-    //div for container
     <div className="w-[121px] h-[40px] flex mr-auto ml-[48px] mt-[48px]">
       <div
         className={`flex flex-row justify-center items-center rounded-2xl border-[1.5px] w-32 h-9 border-teal-500 ${

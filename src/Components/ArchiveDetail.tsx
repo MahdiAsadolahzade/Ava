@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import AudioPlayer from "./Audioplayer";
 import Showsimpletext from "./Showsimpletext";
 import Showtimedtext from "./Showtimedtext";
-import loadingaudio from "../../public/loadingaudio.gif"
+import loadingaudio from "../../public/loadingaudio.gif";
 
 interface Archiveprops {
   Section: string;
@@ -19,22 +19,20 @@ const ArchiveDetail: React.FC<Archiveprops> = ({ Section, ExportData }) => {
   const [choice, setchoice] = useState("simpletext");
   const [audioFile, setAudioFile] = useState<File | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
   useEffect(() => {
     if (ExportData && ExportData["media_url"]) {
-      setIsLoading(true); // آغاز بارگیری
+      setIsLoading(true);
 
       fetch(ExportData["media_url"])
         .then((response) => response.blob())
         .then((blob) => {
-          // ایجاد یک فایل با Blob دریافتی
           const file = new File([blob], "audio.mp3", { type: "audio/mp3" });
           setAudioFile(file);
-          setIsLoading(false); // پایان بارگیری
+          setIsLoading(false);
         })
         .catch((error) => {
           console.error("خطا در دریافت فایل صوتی: ", error);
-          setIsLoading(false); // در صورت بروز خطا نیز پایان بارگیری
+          setIsLoading(false);
         });
     }
   }, [ExportData]);
@@ -73,8 +71,11 @@ const ArchiveDetail: React.FC<Archiveprops> = ({ Section, ExportData }) => {
       )}
       <div className="flex flex-row justify-center">
         {choice === "simpletext" && ExportData && (
-          <Showsimpletext Data={ExportData["segments"]} currentTime={currentTime}
-          Section={Section}></Showsimpletext>
+          <Showsimpletext
+            Data={ExportData["segments"]}
+            currentTime={currentTime}
+            Section={Section}
+          ></Showsimpletext>
         )}
 
         {choice === "timedtext" && ExportData && (
@@ -88,12 +89,12 @@ const ArchiveDetail: React.FC<Archiveprops> = ({ Section, ExportData }) => {
 
       {isLoading ? (
         <div
-        className="flex flex-row justify-center items-center w-[80px] h-[80px] mx-auto"
-        style={{
-          background: `url(${loadingaudio})`,
-          backgroundSize: "cover",
-        }}
-      ></div>
+          className="flex flex-row justify-center items-center w-[80px] h-[80px] mx-auto"
+          style={{
+            background: `url(${loadingaudio})`,
+            backgroundSize: "cover",
+          }}
+        ></div>
       ) : (
         <>
           <div className="my-[10px] w-[70%] mx-auto">
@@ -111,5 +112,4 @@ const ArchiveDetail: React.FC<Archiveprops> = ({ Section, ExportData }) => {
     </div>
   );
 };
-
 export default ArchiveDetail;

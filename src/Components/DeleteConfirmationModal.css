@@ -1,95 +1,87 @@
 /* Modal Container */
 .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-  }
-  
-  .modal.show {
-    display: block;
-  }
-  
-  /* Modal Overlay */
-  .modal-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-  }
-  
-  /* Modal Container */
-  .modal-container {
-    position: relative;
-    width: 300px;
-    margin: 100px auto;
-    background-color: #fff;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Modal Header */
-  .modal-header {
-    padding: 10px;
-    background-color: #00BA9F;
-    color: #fff;
-    border-top-left-radius: 5px;
-    border-top-right-radius: 5px;
-  }
-  
-  .modal-header h3 {
-    margin: 0;
-    padding: 0;
-    font-size: 18px;
-  }
-  
-  .modal-header .modal-close {
-    float: right;
-    cursor: pointer;
-    font-size: 24px;
-    line-height: 1;
-  }
-  
-  /* Modal Body */
-  .modal-body {
-    padding: 20px;
-  }
-  
-  /* Modal Footer */
-  .modal-footer {
-    padding: 10px;
-    text-align: center;
-    border-top: 1px solid #ccc;
-  }
-  
-  /* Buttons */
-  .btn {
-    display: inline-block;
-    padding: 8px 16px;
-    margin: 0 5px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-  }
-  
-  .btn-primary {
-    background-color: #FF1654;
-    color: #fff;
-  }
-  
-  .btn-secondary {
-    background-color: #ccc;
-    color: #000;
-  }
-  
-  /* Hover Effect for Buttons */
-  .btn:hover {
-    opacity: 0.8;
-  }
-  
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+.modal.show {
+  display: block;
+}
+
+.modal-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.modal-container {
+  position: relative;
+  width: 300px;
+  margin: 100px auto;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+.modal-header {
+  padding: 10px;
+  background-color: #00ba9f;
+  color: #fff;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+}
+
+.modal-header h3 {
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+}
+
+.modal-header .modal-close {
+  float: right;
+  cursor: pointer;
+  font-size: 24px;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  padding: 10px;
+  text-align: center;
+  border-top: 1px solid #ccc;
+}
+
+.btn {
+  display: inline-block;
+  padding: 8px 16px;
+  margin: 0 5px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.btn-primary {
+  background-color: #ff1654;
+  color: #fff;
+}
+
+.btn-secondary {
+  background-color: #ccc;
+  color: #000;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}

@@ -2,36 +2,34 @@ import Pauseicon from "../assets/Icons/Pauseicon";
 import Playicon from "../assets/Icons/Playicon";
 import Stopicon from "../assets/Icons/Stopicon";
 import Volumebaricon from "../assets/Icons/Volumebaricon";
-
 import React, { useRef, useState, useEffect } from "react";
 
 interface AudioPlayerProps {
   audioFile: File | undefined | null | Blob;
   AudioSection: string;
   currentTime: number;
-  onTimeUpdate: (newTime: number) => void
+  onTimeUpdate: (newTime: number) => void;
 }
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({
   audioFile,
   AudioSection,
   currentTime,
-  onTimeUpdate
+  onTimeUpdate,
 }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [thumbPosition, setThumbPosition] = useState(0);
   const [loadedProgress, setLoadedProgress] = useState(0);
   const [volume, setVolume] = useState<number>(1);
+  
   let playercolor;
   if (AudioSection === "link") {
     playercolor = "#FF1654";
   } else if (AudioSection === "upload") {
     playercolor = "#118AD3";
   }
-  //---------------------------
 
-  
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.currentTime = currentTime;
@@ -57,8 +55,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({
       }
     };
   }, [audioRef, onTimeUpdate]);
-
-  //---------------------------
 
   const handleVolumeChange = (e: React.MouseEvent<HTMLDivElement>) => {
     const progressBar = document.querySelector(

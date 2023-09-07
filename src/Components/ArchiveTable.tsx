@@ -6,9 +6,9 @@ import moment from "jalali-moment";
 import loadingbar from "../../public/loadingbar.gif";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import React from "react";
+import ArchiveDetail from "./ArchiveDetail";
 import "./ArchieTable.css";
 import "./Voicerecording.css";
-import ArchiveDetail from "./ArchiveDetail";
 
 const Token = import.meta.env.VITE_SOME_KEY;
 const apiUrl = "https://harf.roshan-ai.ir/api/requests";
@@ -69,8 +69,7 @@ async function fetchData(
   page: number,
   setData: (data: any) => void,
   setTotalPages: (totalPages: number) => void,
-  setIsLoading: (isLoading: boolean) => void,
-  setError: (error: string | null) => void
+  setIsLoading: (isLoading: boolean) => void
 ) {
   setIsLoading(true);
   try {
@@ -85,7 +84,6 @@ async function fetchData(
     setTotalPages(data.count);
     setIsLoading(false);
   } catch (error) {
-    setError("مشکلی در دریافت داده‌ها وجود دارد.");
     setIsLoading(false);
   }
 }
@@ -94,11 +92,9 @@ function ArchiveTable() {
   const [data, setData] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(1);
-  const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [itemToDeleteId, setItemToDeleteId] = useState<number | null>(null);
-  const [expandedRows, setExpandedRows] = useState<Set<number>>(new Set());
   const [details, setDetails] = useState<any | null>(null);
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
   const [copyMessages, setCopyMessages] = useState<{ [key: number]: boolean }>(
@@ -121,7 +117,7 @@ function ArchiveTable() {
           },
         }
       );
-      setDetails(data.response_data[0]); // ذخیره اطلاعات جزئیت در state
+      setDetails(data.response_data[0]);
       console.log(data.response_data[0].segments);
     } catch (error) {
       console.error("خطا در دریافت اطلاعات جزئیت: ", error);
@@ -139,19 +135,15 @@ function ArchiveTable() {
 
   const getFullText = (idToCollect: number) => {
     if (!details || !details.segments) {
-      return ""; // اگر اطلاعات یا segments موجود نباشد، یک مقدار خالی برگردانید
+      return "";
     }
-
-    // چک کنید که idToCollect با selectedItemId یکسان است
     if (idToCollect === selectedItemId) {
-      // اگر یکسان باشند، متن‌ها را از segments جمع‌آوری کنید
       const collectedTexts = details.segments.map(
         (segment: { text: any }) => segment.text
       );
       return collectedTexts.join(" ");
     }
-
-    return ""; // اگر idToCollect با selectedItemId مطابقت نداشته باشد، یک مقدار خالی برگردانید
+    return "";
   };
 
   function showFileSize(url: string, callback: (size: string) => void) {
@@ -160,9 +152,9 @@ function ArchiveTable() {
         const contentLength = response.headers.get("Content-Length");
         if (contentLength) {
           const bytes = parseInt(contentLength);
-          const megabytes = bytes / (1024 * 1024); // تبدیل به مگابایت
+          const megabytes = bytes / (1024 * 1024);
           const formattedSize =
-            convertToPersianDigits(megabytes.toFixed(2)) + " مگابایت"; // نمایش با دقت دو رقم اعشار و به اعداد فارسی
+            convertToPersianDigits(megabytes.toFixed(2)) + " مگابایت";
           callback(formattedSize);
         }
       })
@@ -206,14 +198,12 @@ function ArchiveTable() {
     navigator.clipboard
       .writeText(textToCopy)
       .then(() => {
-        // بروزرسانی وضعیت کپی پیام برای سطر مورد نظر
         setCopyMessages((prevCopyMessages) => ({
           ...prevCopyMessages,
           [id]: true,
         }));
 
         setTimeout(() => {
-          // حذف پیام کپی بعد از 2 ثانیه
           setCopyMessages((prevCopyMessages) => ({
             ...prevCopyMessages,
             [id]: false,
@@ -239,17 +229,10 @@ function ArchiveTable() {
         );
         window.location.reload();
         if (response.status === 204) {
-          await fetchData(
-            currentPage,
-            setData,
-            setTotalPages,
-            setIsLoading,
-            setError
-          );
+          await fetchData(currentPage, setData, setTotalPages, setIsLoading);
         } else {
         }
       } catch (error) {
-        // خطایی در اجرای درخواست حذف رخ داده است
         console.error("خطا در حذف: ", error);
       }
     }
@@ -257,7 +240,7 @@ function ArchiveTable() {
   };
 
   useEffect(() => {
-    fetchData(currentPage, setData, setTotalPages, setIsLoading, setError);
+    fetchData(currentPage, setData, setTotalPages, setIsLoading);
   }, [currentPage]);
 
   const handlePageChange = async (page: number) => {
@@ -272,9 +255,7 @@ function ArchiveTable() {
       setData(newData.results);
 
       setCurrentPage(page);
-    } catch (error) {
-      setError("مشکلی در دریافت داده‌ها وجود دارد.");
-    }
+    } catch (error) {}
   };
 
   const visiblePageCount = 5;
@@ -374,11 +355,7 @@ function ArchiveTable() {
               <tbody>
                 {data.map((item: any) => (
                   <React.Fragment key={item.id}>
-                    <tr
-                      className={`hover:shadow  ${
-                        expandedRows.has(item.id) ? "expanded" : ""
-                      } ${item.id}`}
-                    >
+                    <tr className={`hover:shadow `}>
                       <td className="text-center h-9  w-[10%]">
                         {extractFileType(item.request_data.media_urls) ===
                           "file" && ArchiveSideButtons.Upload}
@@ -424,7 +401,7 @@ function ArchiveTable() {
                         {convertToPersianDigits(item.duration)}
                       </td>
                       <td className="flex flex-row relative items-center text-center h-9">
-                      {fileSizeMessage.size &&
+                        {fileSizeMessage.size &&
                           fileSizeMessage.rowId === item.id && (
                             <div
                               className={`file-size-message  ${
@@ -442,19 +419,17 @@ function ArchiveTable() {
                             showFileSize(
                               item.request_data.media_urls,
                               (size) => {
-                                // تغییر مقدار حجم در state و ارسال شناسه سطر
                                 setFileSizeMessage({ size, rowId: item.id });
                               }
-                            ); // ارسال شناسه سطر به تابع showFileSize
+                            );
                           }}
                           onMouseLeave={() => {
-                            // حذف مقدار حجم از state و ارسال شناسه سطر به تابع showFileSize
                             setFileSizeMessage({ size: null, rowId: item.id });
                           }}
                         >
                           {ArchiveSideButtons.Download}
                         </div>
-                       
+
                         <div
                           className="cursor-pointer w-7 h-7 flex items-center"
                           onClick={() =>

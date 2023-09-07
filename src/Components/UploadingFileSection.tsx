@@ -8,21 +8,23 @@ import AudioPlayer from "./Audioplayer";
 import Showsimpletext from "./Showsimpletext";
 import Showtimedtext from "./Showtimedtext";
 
-
 interface FileProps {
-  FileUpload?: File | Blob ;
-  Section : string;
-  ExportData: any ;
+  FileUpload?: File | Blob;
+  Section: string;
+  ExportData: any;
 }
 
-const UploadingFileSection: React.FC<FileProps> = ({FileUpload , Section , ExportData})=> {
- 
- //--------------------
- const [currentTime, setCurrentTime] = useState<number>(0);
- const handleTimeUpdate = (newTime: number) => {
-  setCurrentTime(newTime);
-};
- //--------------------
+const UploadingFileSection: React.FC<FileProps> = ({
+  FileUpload,
+  Section,
+  ExportData,
+}) => {
+  //--------------------
+  const [currentTime, setCurrentTime] = useState<number>(0);
+  const handleTimeUpdate = (newTime: number) => {
+    setCurrentTime(newTime);
+  };
+  //--------------------
   const [choice, setchoice] = useState("simpletext");
   return (
     <div className="flex flex-col w-[100%]">
@@ -58,14 +60,17 @@ const UploadingFileSection: React.FC<FileProps> = ({FileUpload , Section , Expor
             <Copyicon></Copyicon>
           </div>
 
-          <div className={`flex flex-row justify-center items-center w-28 h-8  rounded-2xl cursor-pointer ${Section==="upload" &&"bg-sky-600"} ${Section==="link" &&"bg-rose-500"}`}>
+          <div
+            className={`flex flex-row justify-center items-center w-28 h-8  rounded-2xl cursor-pointer ${
+              Section === "upload" && "bg-sky-600"
+            } ${Section === "link" && "bg-rose-500"}`}
+          >
             <Refreshicon></Refreshicon>
             <span className="text-[#ffffff] ">شروع دوباره</span>
           </div>
         </div>
       </div>
 
-      
       <hr className="w-[80%] mx-auto" />
       {choice === "simpletext" && (
         <div className="w-[10%] h-px border-[1.5px] border-black ml-auto mr-[75px]"></div>
@@ -74,15 +79,32 @@ const UploadingFileSection: React.FC<FileProps> = ({FileUpload , Section , Expor
         <div className="w-[17%] h-px border-[1.5px] border-black ml-auto mr-[175px]"></div>
       )}
       <div className="flex flex-row justify-center">
-        {choice === "simpletext" && <Showsimpletext Data={ExportData} currentTime={currentTime} Section={Section}></Showsimpletext>}
-        {choice === "timedtext" && <Showtimedtext Data={ExportData} currentTime={currentTime} Section={Section}></Showtimedtext>}
+        {choice === "simpletext" && (
+          <Showsimpletext
+            Data={ExportData}
+            currentTime={currentTime}
+            Section={Section}
+          ></Showsimpletext>
+        )}
+        {choice === "timedtext" && (
+          <Showtimedtext
+            Data={ExportData}
+            currentTime={currentTime}
+            Section={Section}
+          ></Showtimedtext>
+        )}
       </div>
 
       <div className="my-[10px] ">
-        <AudioPlayer audioFile={FileUpload} AudioSection={Section} currentTime={currentTime} onTimeUpdate={handleTimeUpdate} ></AudioPlayer>
+        <AudioPlayer
+          audioFile={FileUpload}
+          AudioSection={Section}
+          currentTime={currentTime}
+          onTimeUpdate={handleTimeUpdate}
+        ></AudioPlayer>
       </div>
     </div>
   );
-}
+};
 
 export default UploadingFileSection;

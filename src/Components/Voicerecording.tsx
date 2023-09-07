@@ -3,14 +3,14 @@ import Voiceicon from "../assets/Icons/Voiceicon";
 import Mutevoiceicon from "../assets/Icons/Mutevoiceicon";
 import ArchiveSideButtons from "../assets/Icons/ArchiveSideButtons";
 import "./Voicerecording.css";
-import WaveBackground from "../../public/Wave.gif"
-import WaveBackground2 from "../../public/Wave2.gif"
+import WaveBackground from "../../public/Wave.gif";
+import WaveBackground2 from "../../public/Wave2.gif";
 
 export default function Voicerecording() {
   const [isRecording, setIsRecording] = useState(false);
   const mediaRecorder = useRef<MediaRecorder | null>(null);
   const socketRef = useRef<WebSocket | null>(null);
-  const [segments, setSegments] = useState<
+  const [, setSegments] = useState<
     { segment_id: number; text: string; start: string; end: string }[]
   >([]);
   const [currentStart, setCurrentStart] = useState("00:00:00");
@@ -20,7 +20,7 @@ export default function Voicerecording() {
     {}
   );
   const [fullTextArray, setFullTextArray] = useState<string[]>([]);
-  const [wave , setWave] = useState(false)
+  const [wave, setWave] = useState(false);
   const getFullText = () => {
     return fullTextArray.join(" ");
   };
@@ -33,7 +33,7 @@ export default function Voicerecording() {
         setIsCopyMessageVisible(true);
         setTimeout(() => {
           setIsCopyMessageVisible(false);
-        }, 2000); // مدت زمان نمایش پیام (2 ثانیه)
+        }, 2000);
       })
       .catch((error) => {
         console.error("خطا در کپی متن به کلیپ‌بورد!", error);
@@ -53,12 +53,10 @@ export default function Voicerecording() {
     newSocket.onmessage = (event) => {
       const message = JSON.parse(event.data);
       setSegments((prevSegments) => {
-        // آپدیت آخرین تغییرات بر روی سگمنت آیدی
         const updatedLastChangeMap = { ...lastChangeMap };
         updatedLastChangeMap[message.segment_id] = message.text;
         setLastChangeMap(updatedLastChangeMap);
 
-        // آپدیت آرایه پیام‌ها با توجه به آخرین تغییرات
         const updatedSegments = prevSegments.map((segment) => {
           if (segment.segment_id === message.segment_id) {
             return { ...segment, text: message.text };
@@ -69,7 +67,6 @@ export default function Voicerecording() {
         setCurrentStart(message.start);
         setCurrentEnd(message.end);
 
-        // آپدیت آرایه fullTextArray با متن جدید
         setFullTextArray((prevFullTextArray) => {
           const updatedFullTextArray = [...prevFullTextArray];
           updatedFullTextArray[message.segment_id] = message.text;
@@ -80,7 +77,6 @@ export default function Voicerecording() {
       });
     };
 
-    // تغییرات این قسمت
     return () => {
       newSocket.close();
     };
@@ -96,7 +92,6 @@ export default function Voicerecording() {
       mediaRecorder.current.ondataavailable = (event) => {
         if (event.data.size > 0) {
           socketRef.current?.send(event.data);
-          // console.log("data", event.data);
         }
       };
 
@@ -173,8 +168,14 @@ export default function Voicerecording() {
           <div className="flex flex-row justify-center">
             <div className="w-[80%] mx-auto h-60 text-right text-black text-base font-light overflow-auto mt-[10px]">
               {fullTextArray.map((text, index) => (
-                <span className={`${index === fullTextArray.length -1 ? "text-teal-500" : "text-black"}`}
-                 key={index}>
+                <span
+                  className={`${
+                    index === fullTextArray.length - 1
+                      ? "text-teal-500"
+                      : "text-black"
+                  }`}
+                  key={index}
+                >
                   {text + " "}
                 </span>
               ))}
@@ -183,10 +184,12 @@ export default function Voicerecording() {
 
           <div className="my-[15px]  flex flex-row justify-center">
             <div
-              className={`cursor-pointer  rounded-full w-[80px] h-[80px]  flex flex-row justify-center items-center hover:text-${wave?"teal-500":"rose-500"}  text-white`}
+              className={`cursor-pointer  rounded-full w-[80px] h-[80px]  flex flex-row justify-center items-center hover:text-${
+                wave ? "teal-500" : "rose-500"
+              }  text-white`}
               onClick={toggleMute}
               style={{
-                background: `url(${wave ?WaveBackground2:WaveBackground})`,
+                background: `url(${wave ? WaveBackground2 : WaveBackground})`,
                 backgroundSize: `${wave ? "cover" : "contain"}`,
               }}
             >

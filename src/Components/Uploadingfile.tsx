@@ -1,12 +1,12 @@
 import BigUploadicon from "../assets/Icons/BigUploadicon";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import UploadingFileSection from "./UploadingFileSection";
 const Token = import.meta.env.VITE_SOME_KEY;
 
 const Uploadingfile: React.FC = () => {
   const [uploaded, setUploaded] = useState(false);
-  const [loading, setLoading] = useState(false); // اضافه کردن وضعیت لودینگ
+  const [loading, setLoading] = useState(false);
   const [file, setFile] = useState<File | undefined>();
   const [extracteddata, setExtracteddata] = useState(null);
 
@@ -27,7 +27,6 @@ const Uploadingfile: React.FC = () => {
     const formData = new FormData();
     formData.append("media", file);
     formData.append("language", "fa");
-    
 
     try {
       const { data } = await axios.post(

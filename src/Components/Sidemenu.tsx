@@ -1,5 +1,4 @@
 import { NavLink } from "react-router-dom";
-
 import Goftarsection from "./Goftarsection";
 import Archivesection from "./Archivesection";
 import Mainicon from "../assets/Icons/Mainicon";

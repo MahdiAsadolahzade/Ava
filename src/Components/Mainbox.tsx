@@ -6,7 +6,6 @@ import Voicerecording from "./Voicerecording";
 import Link from "./Link";
 import Uploadingfile from "./Uploadingfile";
 
-
 function Mainbox() {
   const [selectedPlatform, setSelectedPlatform] = useState("record");
 
@@ -20,7 +19,9 @@ function Mainbox() {
             "bg-teal-500 rounded-tl-[10px] rounded-tr-[10px] text-[#ffffff] w-auto h-[48px] p-[10px]"
           }`}
         >
-          <div className="mx-[1px]"><Micicon></Micicon></div>
+          <div className="mx-[1px]">
+            <Micicon></Micicon>
+          </div>
           ضبط صدا
         </button>
         <button
@@ -30,7 +31,9 @@ function Mainbox() {
             " bg-[#118ad3] rounded-tl-[10px] rounded-tr-[10px] text-[#ffffff] w-auto h-[48px] p-[10px]"
           }`}
         >
-          <div className="mx-[2px]"><Uploadicon></Uploadicon></div>
+          <div className="mx-[2px]">
+            <Uploadicon></Uploadicon>
+          </div>
           بارگذاری فایل
         </button>
 
@@ -41,15 +44,17 @@ function Mainbox() {
             "bg-[#ff1654] rounded-tl-[10px] rounded-tr-[10px] text-[#ffffff] w-auto h-[48px] p-[10px]"
           }`}
         >
-          <div className="mx-[1px]"><Linkicon></Linkicon></div>
+          <div className="mx-[1px]">
+            <Linkicon></Linkicon>
+          </div>
           لینک
         </button>
       </div>
 
       <div className="flex flex-row justify-center w-[100%]">
-      {selectedPlatform === "record" && <Voicerecording />}
-      {selectedPlatform === "upload" && <Uploadingfile />}
-      {selectedPlatform === "link" && <Link />}
+        {selectedPlatform === "record" && <Voicerecording />}
+        {selectedPlatform === "upload" && <Uploadingfile />}
+        {selectedPlatform === "link" && <Link />}
       </div>
     </div>
   );

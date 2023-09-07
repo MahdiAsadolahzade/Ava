@@ -1,6 +1,6 @@
 import React from "react";
-import "./DeleteConfirmationModal.css"
-import Deleteanimation from "../../public/Deleteanimation.gif"
+import "./DeleteConfirmationModal.css";
+import Deleteanimation from "../../public/Deleteanimation.gif";
 
 interface DeleteConfirmationModalProps {
   isOpen: boolean;
@@ -14,7 +14,6 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
   onConfirmDelete,
 }) => {
   return (
-    // طراحی و محتوای مدال حذف خود را اضافه کنید
     <div className={`modal ${isOpen ? "block" : "hidden"}`}>
       <div className="modal-overlay"></div>
       <div className="modal-container">
@@ -25,13 +24,13 @@ const DeleteConfirmationModal: React.FC<DeleteConfirmationModalProps> = ({
           </span>
         </div>
         <div className="modal-body text-center">
-        <div
-          className="mx-auto text-center w-[100px] h-[100px] "
-          style={{
-            background: `url(${Deleteanimation})`,
-            backgroundSize: "cover",
-          }}
-        ></div>
+          <div
+            className="mx-auto text-center w-[100px] h-[100px] "
+            style={{
+              background: `url(${Deleteanimation})`,
+              backgroundSize: "cover",
+            }}
+          ></div>
         </div>
         <div className="modal-footer">
           <button className="btn btn-primary" onClick={onConfirmDelete}>
