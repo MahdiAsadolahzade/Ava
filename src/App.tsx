@@ -1,16 +1,16 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Goftarpage from "./Pages/Goftarpage";
 import Archivepage from "./Pages/Archivepage";
 
 function App() {
   return (
     <>
-      <Router 
-      // basename={import.meta.env.DEV ? '/' : '/Ava/'}
-      >
+      <Router>
+        
         <Routes>
           <Route path="/Ava/" element={<Goftarpage />} />
           <Route path="/Ava/archive/" element={<Archivepage />} />
+          <Route path="*" element={<Navigate to="/Archivepage" />} />
         </Routes>
       </Router>
     </>
