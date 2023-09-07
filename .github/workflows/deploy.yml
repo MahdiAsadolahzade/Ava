@@ -42,6 +42,8 @@ jobs:
         run: npm install
       - name: Build
         run: npm run build
+        env:
+          VITE_SOME_KEY: ${{secrets.VITE_SOME_KEY}}
       - name: Setup Pages
         uses: actions/configure-pages@v3
       - name: Upload artifact
@@ -49,7 +51,6 @@ jobs:
         with:
           # Upload dist repository
           path: './dist'
-          VITE_SOME_KEY: ${{ secrets.VITE_SOME_KEY }}
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v1
