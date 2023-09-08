@@ -36,7 +36,7 @@ export default function Sidemenu() {
                   ? "bg-[#02816e] rounded-[10px]  w-[90%] h-[48px] flex flex-row justify-center items-center"
                   : ""
               }
-              to="/Ava/"
+              to="/"
             >
               <Goftarsection></Goftarsection>
             </NavLink>
@@ -50,7 +50,7 @@ export default function Sidemenu() {
                   ? "bg-[#02816e] rounded-[10px]  w-[90%] h-[48px] flex flex-row items-center justify-center"
                   : ""
               }
-              to="/Ava/archive/"
+              to="/archive/"
             >
               <Archivesection></Archivesection>
             </NavLink>
